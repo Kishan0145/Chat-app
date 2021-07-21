@@ -252,7 +252,7 @@ h2 span{
 
 @media only screen and (max-width:690px){
     .compose {
-        padding: 4px;
+        padding: 10px;
     }
     .chat__sidebar{
         width: 0px;
@@ -262,7 +262,7 @@ h2 span{
         z-index: 1;
     }
     .chat__messages{
-        height: 100vh;
+        height: 82vh;
     }
     #menulines{
         visibility: visible;
