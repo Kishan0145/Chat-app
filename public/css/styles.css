@@ -1,0 +1,273 @@
+/* General Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+input {
+    font-size: 14px;
+}
+
+body {
+    line-height: 1.4;
+    color: #333333;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+h1 {
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #777;
+}
+
+input {
+    border: 1px solid #eeeeee;
+    padding: 12px;
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+    padding: 12px;
+    background: #7C5CBF;
+    border: none;
+    color: white;
+    font-size: 16px;
+    transition: background .3s ease;
+}
+
+button:hover {
+    background: #6b47b8;
+}
+
+button:disabled {
+    cursor: default;
+    background: #7c5cbf94;
+}
+
+/* Join Page Styles */
+
+.centered-form {
+    background: #333744;
+    width: 100vw;
+    height: 100vh;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered-form__box {
+    box-shadow: 0px 0px 17px 1px #1D1F26;
+    background: #F7F7FA;
+    padding: 24px;
+    width: 250px;
+}
+
+.centered-form button {
+    width: 100%;
+}
+
+.centered-form input {
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+/* Chat Page Layout */
+
+.chat {
+    display: flex;
+}
+
+.chat__sidebar {
+    height: 100vh;
+    color: white;
+    background: #333744;
+    width: 225px;
+    overflow-y: scroll;
+    flex-shrink: 0;
+    transition: all;
+    transition-duration: 0.5s;
+}
+
+/* Chat styles */
+
+.chat__main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+}
+
+.chat__messages {
+    flex-grow: 1;
+    padding: 24px 24px 0 24px;
+    overflow-y: scroll;
+    word-break: break-all;
+}
+
+/* Message Styles */
+
+.message {
+    width: max-content;
+    color: #000000;
+    border: 2px solid #ebebeb ;
+    border-radius: 20px;
+    background-color: #ebebeb;
+    padding: 10px;
+    margin-bottom: 16px;   
+    width: fit-content;
+}
+
+.message__name {
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 8px;
+    color: #777;
+}
+
+.message__meta {
+    color: #777;
+    font-size: 14px;
+}
+
+.message a {
+    color: white;
+}
+
+/* Message Composition Styles */
+
+.compose {
+    display: flex;
+    flex-shrink: 0;
+    margin-top: 16px;
+    padding: 24px;
+}
+
+.compose form {
+    display: flex;
+    flex-grow: 1;
+    margin-right: 16px;
+}
+
+.compose textarea {
+    resize: none;
+    border-radius: 5px;
+    width: fit-content;
+    background-color: #eeeeee;;
+    border: 1px solid #eeeeee;
+    width: 100%;
+    padding: 12px;
+    margin: 0 16px 0 0;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.compose button {
+    height: 41px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Chat Sidebar Styles */
+
+.room-title {
+    font-weight: 400;
+    font-size: 22px;
+    background: #2c2f3a;
+    padding: 24px;   
+}
+
+.list-title {
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 4px;
+    padding: 12px 24px 0 24px;
+}
+
+.users {
+    list-style-type: none;
+    font-weight: 300;
+    padding: 12px 24px 0 24px;
+}
+
+.my_message{
+  color: white;
+  background-color:#7C5CBF;
+  border: 2px solid #7C5CBF;
+  margin-left: auto;
+}
+.my_message_name{
+    color: rgba(255, 255, 255, 0.8);
+
+}
+.my_message_meta{
+    color: rgba(255, 255, 255, 0.8);
+}
+
+img{
+    width: 20px;
+    height: 20px;
+}
+
+.navbar{
+    display: flex;
+    background-color: #eeeeee;;
+    width: 100%;
+    height: 8vh;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h2{
+    margin-right: 45px;
+    color: #7C5CBF;
+}
+h2 span{
+    font-size: 20px;
+    position: relative;
+    left: 100px;
+}
+
+#menulines{
+    visibility: hidden;
+    margin-left: 20px;
+    font-size: 25px;
+}
+
+#crosslines{
+    visibility: hidden;
+}
+/* ------------------Media quires--------------------------------- */
+
+@media only screen and (max-width:690px){
+    .compose {
+        padding: 4px;
+    }
+    .chat__sidebar{
+        width: 0px;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        z-index: 1;
+    }
+    .chat__messages{
+        height: 100vh;
+    }
+    #menulines{
+        visibility: visible;
+    }
+    #crosslines{
+        visibility: visible;
+    }
+}
