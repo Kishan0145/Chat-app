@@ -1,4 +1,5 @@
-const query_String = Qs.parse(location.search, { ignoreQueryPrefix: true })
+var query_String = Qs.parse(location.search, { ignoreQueryPrefix: true })
+var query_String = Qs.parse(location.search, { ignoreQueryPrefix: true })
 const socket = io();
 const $messages = document.getElementById("message");
 
@@ -16,29 +17,27 @@ const autoscroll = () => {
     // How far have I scrolled?
     const scrollOffset = $messages.scrollTop + visibleHeight
     if (containerHeight - newMessageHeight <= scrollOffset) {
-    $messages.scrollTop = $messages.scrollHeight
+        $messages.scrollTop = $messages.scrollHeight
     }
-   }
+}
 
 function playSound(url) {
     const audio = new Audio(url);
     audio.play();
-  }
+}
 
 document.querySelector("#message-form").addEventListener("submit", (e) => {
     e.preventDefault();
     window.value = document.getElementById("msg").value;
-    // console.log(msg)
 })
 
 socket.on("Msg", (msg) => {
-    console.log("OUT",msg)
-    // window.value = msg.msg;
+    console.log("msg", msg)
+    console.log("query ", query_String)
     var container = document.createElement("div");
     container.setAttribute("class", "message");
-    // console.log(document.getElementById("msg"))
     var message = document.createElement("p");
-    if (msg.msg != undefined) { 
+    if (msg.msg != undefined) {
         if (!msg.msg.includes("https")) {
             message.innerText = `${msg.msg}`
         }
@@ -51,15 +50,14 @@ socket.on("Msg", (msg) => {
     var time_span = document.createElement("span");
     time_span.setAttribute("class", "message__meta");
     time_span.innerText = `${moment(new Date()).format("h:mm a")}- `
-    
-    if(window.value === msg.msg || msg.msg.includes("https") && window.value != undefined ){
-       
+    if ((window.value === msg.msg || ((msg.msg.includes("https") && (msg.username === query_String.username))) || (window.value != undefined) && ((msg.msg.includes("https") && (msg.username === query_String.username))))) {
+
         user_span.innerText = "me"
         container.classList.add("my_message")
         user_span.classList.add("my_message_name")
         time_span.classList.add("my_message_meta")
     }
-    else{
+    else {
         playSound("/audio/hollow-582.ogg")
         user_span.innerText = `${msg.username}`
     }
@@ -68,40 +66,37 @@ socket.on("Msg", (msg) => {
 
     container.appendChild(user_time)
     container.appendChild(message)
-    if(msg.msg != undefined){
+    if (msg.msg != undefined) {
         if (msg.msg.includes("https")) {
-            // console.log(msg)
+
             var location = document.createElement("a");
             location.setAttribute("href", msg.msg);
             location.setAttribute("target", "_blank")
             location.innerText = `My Location`;
             message.appendChild(location)
-            console.log(message)
         }
         else {
-            // playSound("/audio/hollow-582.ogg")
             message.innerText = `${msg.msg}`
         }
     }
 
     document.getElementById("message").insertAdjacentElement("beforeend", container)
-   autoscroll()
+    autoscroll()
 })
 
 
-    document.querySelector("#message-form").addEventListener("submit", (e) => {
-        e.preventDefault();
-        document.getElementById("send").disabled = true;
-        const msg = document.getElementById("msg").value;
-        const elem  =  document.querySelector(".message")
-        // console.log("window",window.value);
-        socket.emit("Message", msg);
-        document.getElementById("send").disabled = false;
-        document.getElementById("msg").value = ""
-        document.getElementById("msg").focus();
+document.querySelector("#message-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    document.getElementById("send").disabled = true;
+    const msg = document.getElementById("msg").value;
+    const elem = document.querySelector(".message")
+    socket.emit("Message", msg);
+    document.getElementById("send").disabled = false;
+    document.getElementById("msg").value = ""
+    document.getElementById("msg").focus();
 
-        document.querySelector("textarea").style.height = "";
-    })
+    document.querySelector("textarea").style.height = "";
+})
 
 
 document.getElementById("location").addEventListener("click", () => {
@@ -111,6 +106,7 @@ document.getElementById("location").addEventListener("click", () => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
         }
+
         socket.emit("sendLocation", current_location);
         document.getElementById("location").disabled = false;
     })
@@ -121,13 +117,11 @@ socket.emit("join", query_String, (error) => {
     alert(error);
     location.href = "/";
 })
-socket.on("roomUsers",(userData)=>{
-    console.log(userData);
-    const sidebar =  document.getElementById("roomUsers").innerHTML
-    console.log(sidebar)
-    const html = Mustache.render(sidebar,{
-        room : userData.room,
-        users : userData.users,
-    })   
+socket.on("roomUsers", (userData) => {
+    const sidebar = document.getElementById("roomUsers").innerHTML
+    const html = Mustache.render(sidebar, {
+        room: userData.room,
+        users: userData.users,
+    })
     document.querySelector(".chat__sidebar").innerHTML = html;
 })

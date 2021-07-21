@@ -23,10 +23,13 @@ io.on("connection", (socket) => {
     socket.on("Message", (msg) => {
         const user = users.getUser(socket.id);
         console.log(user);
-        io.to(user.room).emit("Msg", {
-            msg,
-            username: user.username
-        });
+        if(user!=undefined)
+        {
+            io.to(user.room).emit("Msg", {
+                msg,
+                username: user.username
+            });
+        }
     })
 
     socket.on("join", (query_String, callback) => {
@@ -72,7 +75,7 @@ io.on("connection", (socket) => {
 
 app.get("", (req, res) => {
     -
-    res.render("index");
+        res.render("index");
 })
 
 server.listen(port, () => {
