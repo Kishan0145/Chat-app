@@ -62,7 +62,7 @@ button:disabled {
 .centered-form {
     background: #333744;
     width: 100vw;
-    height: 100vh;   
+    height: 100%;   
     display: flex;
     justify-content: center;
     align-items: center;
@@ -107,7 +107,7 @@ button:disabled {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    max-height: 100vh;
+    max-height: 100%;
 }
 
 .chat__messages {
