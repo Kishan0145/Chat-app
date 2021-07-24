@@ -7,6 +7,7 @@
 }
 
 html {
+    height: 100%;
     font-size: 16px;
 }
 
@@ -224,7 +225,7 @@ img{
     display: flex;
     background-color: #eeeeee;;
     width: 100%;
-    height: 8vh;
+    height: 78px;
     justify-content: space-between;
     align-items: center;
 }
@@ -262,7 +263,7 @@ h2 span{
         z-index: 1;
     }
     .chat__messages{
-        height: 82vh;
+        height: 80vh;
     }
     #menulines{
         visibility: visible;
